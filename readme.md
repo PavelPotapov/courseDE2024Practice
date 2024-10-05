@@ -5,22 +5,14 @@
 1. **Клонируйте репозиторий**:
 
    ```bash
-   git clone https://github.com/PavelPotapov/course2024DEFrontend
-   cd course2024DEFrontend
+   git clone https://github.com/PavelPotapov/courseDE2024Practice
+   cd courseDE2024Practice
    ```
 
 2. **Установите зависимости**:
 
    ```bash
    npm install
-   ```
-
-3. **Инициализируйте Mock Service Worker (MSW)**:
-
-   Создайте файл `mockServiceWorker.js` в публичной директории:
-
-   ```bash
-   npx msw init public
    ```
 
 ## Запуск
