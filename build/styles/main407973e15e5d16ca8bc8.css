@@ -1,7 +1,8 @@
 .btn {
 	background-color: blue;
+}
 
-	&__text {
+	.btn__text {
 		color: red;
 	}
-}
+

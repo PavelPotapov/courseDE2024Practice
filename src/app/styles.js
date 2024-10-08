@@ -1,4 +1,4 @@
-const files = await import.meta.webpackContext("./", {
+const files = await import.meta.webpackContext("../", {
 	regExp: /\.pcss/,
 	mode: "eager",
 })

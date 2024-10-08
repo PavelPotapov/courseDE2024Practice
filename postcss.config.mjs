@@ -1,4 +1,4 @@
-import autoprefixer from "autoprefixer"
+import postcssPresetEnv from "postcss-preset-env"
 
 export default {
 	plugins: [
@@ -6,8 +6,10 @@ export default {
 		"postcss-mixins", // Для миксинов
 		"postcss-custom-media", // Для кастомных медиа-запросов
 		"postcss-nested", // Для вложенности в стилях
-		autoprefixer({
-			overrideBrowserslist: ["last 2 versions"], // Настройка для автопрефикса
+		postcssPresetEnv({
+			features: {
+				
+			},
 		}),
 	],
 }
