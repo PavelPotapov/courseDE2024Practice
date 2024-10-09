@@ -1,4 +1,4 @@
-import { Button } from "#shared/ui/Button/index"
+import { Button } from "#shared/ui/Button/index";
 
 const IndexPage = () => `
   <!DOCTYPE html>
@@ -18,6 +18,6 @@ const IndexPage = () => `
       </main>
     </body>
   </html>
-`
+`;
 
-export default IndexPage
+export default IndexPage;

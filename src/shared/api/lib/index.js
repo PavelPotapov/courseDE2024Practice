@@ -1,21 +1,5 @@
-import { http, HttpResponse, HttpMethods } from "msw"
-import { API_URL } from "../../config/constants.js"
-import { worker } from "../browser.js"
-
-/**
- * Получает результат запуска MSW
- * @return {Promise.<void|ServiceWorkerRegistration>}
- */
-async function getMocks() {
-	switch (process.env.NODE_ENV) {
-		case "development": // `development` mode
-			return await worker.start({
-				onUnhandledRequest: "bypass",
-			})
-		default: // `production` or `test` mode
-			return Promise.resolve()
-	}
-}
+import { http, HttpResponse, HttpMethods } from "msw";
+import { API_URL } from "../../config/constants.js";
 
 /**
  * Получает результат ответа MSW
@@ -26,27 +10,27 @@ async function getMocks() {
  * @return {HttpHandler}
  */
 function getResponseMock({ type, resp, data, endpoint }) {
-	if (!endpoint) {
-		throw new Error("Missing endpoint for getResponseMock")
-	}
+  if (!endpoint) {
+    throw new Error("Missing endpoint for getResponseMock");
+  }
 
-	const url = `${API_URL}/${endpoint}`
-	const method = type || "GET"
-	const resolver = () => {
-		const body = !!resp
-			? resp
-			: {
-					isSuccess: true,
-					data,
-			  }
-		return HttpResponse.json(body)
-	}
-	switch (method) {
-		case HttpMethods.POST:
-			return http.post(url, resolver)
-		default:
-			return http.get(url, resolver)
-	}
+  const url = `${API_URL}/${endpoint}`;
+  const method = type || "GET";
+  const resolver = () => {
+    const body = !!resp
+      ? resp
+      : {
+          isSuccess: true,
+          data,
+        };
+    return HttpResponse.json(body);
+  };
+  switch (method) {
+    case HttpMethods.POST:
+      return http.post(url, resolver);
+    default:
+      return http.get(url, resolver);
+  }
 }
 
-export { getMocks, getResponseMock }
+export { getResponseMock };
