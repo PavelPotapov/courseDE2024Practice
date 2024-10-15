@@ -1,10 +1,12 @@
 import "./styles.js";
-import { BASE_URL, API_URL, API_ENDPOINTS } from "#shared/config/constants";
+import { API_URL, API_ENDPOINTS } from "#shared/config/constants";
+import { ApiClient } from "../shared/lib/services/ApiClient.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
     const { getMocks } = await import("#shared/api/browser");
     await getMocks();
+
     console.debug("msw ready");
   } else {
     return Promise.resolve();
@@ -22,10 +24,9 @@ function domReady() {
 }
 
 Promise.all([initMSW(), domReady()]).then(() => {
-  fetch(`${BASE_URL}/${API_URL}/${API_ENDPOINTS.posts.news}`)
-    .then((res) => res.json())
-    .then((res) => console.debug(res));
+  const apiClient = new ApiClient(API_URL);
 
-  const a = "hu";
-  console.debug("Бывает");
+  apiClient
+    .get(API_ENDPOINTS.posts.news, { id: 5 })
+    .then((res) => console.debug(res));
 });
