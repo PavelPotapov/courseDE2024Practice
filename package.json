@@ -17,6 +17,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.7",
     "@babel/plugin-syntax-import-attributes": "^7.25.7",
+    "@delement/eslint-config-master": "^1.1.2",
+    "@delement/stylelint-config-master": "^1.0.1",
     "@stylistic/eslint-plugin-js": "^2.9.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
@@ -51,10 +53,5 @@
     "workerDirectory": [
       "public"
     ]
-  },
-  "dependencies": {
-    "@delement/eslint-config-master": "^1.1.2",
-    "@delement/stylelint-config-master": "^1.0.1",
-    "save-dev": "^0.0.1-security"
   }
 }
