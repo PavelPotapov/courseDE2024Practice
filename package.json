@@ -51,5 +51,10 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "dependencies": {
+    "@delement/eslint-config-master": "^1.1.2",
+    "@delement/stylelint-config-master": "^1.0.1",
+    "save-dev": "^0.0.1-security"
   }
 }

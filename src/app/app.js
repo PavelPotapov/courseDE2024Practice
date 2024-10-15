@@ -1,6 +1,6 @@
 import "./styles.js";
-import { API_URL, API_ENDPOINTS } from "#shared/config/constants";
 import { ApiClient } from "../shared/lib/services/ApiClient.js";
+import { API_URL, API_ENDPOINTS } from "#shared/config/constants";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {

@@ -1,5 +1,8 @@
 import { Button } from "#shared/ui/Button/index";
 
+/**
+ *
+ */
 const IndexPage = () => `
   <!DOCTYPE html>
   <html lang="en">

@@ -8,4 +8,4 @@ const API_URL = process.env.API_URL;
 
 const BASE_URL = window.location.origin;
 
-export { API_URL, API_ENDPOINTS, BASE_URL };
+export { API_ENDPOINTS, API_URL, BASE_URL };

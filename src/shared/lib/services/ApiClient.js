@@ -1,3 +1,6 @@
+/**
+ *
+ */
 export class ApiClient {
   constructor(baseURL) {
     this.baseURL = baseURL;
@@ -72,7 +75,9 @@ export class ApiClient {
       }
 
       return this.#handleResponse(response);
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   get(endpoint, params = {}, headers = {}, contentType = "application/json") {

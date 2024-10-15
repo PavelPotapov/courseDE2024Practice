@@ -20,7 +20,7 @@ const appDir = path.resolve(__dirname, "./src/app");
 const folders = ["fonts", "assets"];
 const copyFolders = (folders) => {
   return folders.map((folder) => {
-    const fromPath = publicDir;
+    const fromPath = path.resolve(publicDir, `./${folder}`);
     const toPath = buildDir;
     if (!fs.existsSync(fromPath)) {
       console.warn(`Source folder: ${fromPath} does not exist`);
@@ -33,6 +33,9 @@ const copyFolders = (folders) => {
   });
 };
 
+/**
+ *
+ */
 export default async (env, { mode }) => {
   const isDev = mode === "development";
   return {
