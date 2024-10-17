@@ -6,7 +6,10 @@ const files = await import.meta.webpackContext("../", {
 // Определите массив с приоритетами
 const priorityOrder = [
   "./app/styles/vars.pcss", // Полный путь к файлу
-  "./app/styles/global.pcss", // Полный путь к файлу
+  "./app/styles/palette.pcss",
+  "./app/styles/fonts.pcss",
+  "./app/styles/global.pcss",
+  "./app/styles/utils.pcss",
   // добавьте другие файлы по мере необходимости
 ];
 
