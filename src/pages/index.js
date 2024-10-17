@@ -1,7 +1,10 @@
 import { Button } from "#shared/ui/Button/index";
+import { CinemaIcon } from "#shared/ui/Icons/index";
+import { Switch } from "#shared/ui/Switch/index";
 
 /**
- *
+ * Страница приложения
+ * @return {string}
  */
 const IndexPage = () => `
   <!DOCTYPE html>
@@ -18,6 +21,8 @@ const IndexPage = () => `
       <main>
         <p>Hello world! 12</p>
         ${Button({ text: "HI!" })}
+        ${Switch({})}
+        ${CinemaIcon()}
       </main>
     </body>
   </html>

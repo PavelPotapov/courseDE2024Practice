@@ -1,0 +1,49 @@
+.switch {
+  --switchBgColor: var(--colorGray);
+  --switchBhColorActive: var(--colorPrimary);
+  --switchWidth: 5.75rem;
+  --switchHeight: 3rem;
+  --switchBorderRadius: 7rem;
+  --switchCircleWidth: 2.5rem;
+  --switchCircleHeight: 2.5rem;
+  --switckCircleColor: var(--colorWhite);
+  --switchTransition: all 0.4s;
+  position: relative;
+  display: inline-block;
+  width: var(--switchWidth);
+  height: var(--switchHeight);
+
+  &__slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background-color: var(--colorGray);
+    border-radius: var(--switchBorderRadius);
+    transition: var(--switchTransition);
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: var(--switchCircleWidth);
+      height: var(--switchCircleHeight);
+      background-color: var(--switckCircleColor);
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: var(--switchTransition);
+    }
+  }
+
+  &__input {
+    /* stylelint-disable-next-line selector-class-pattern */
+    &:checked + .switch__slider {
+      background-color: var(--switchBhColorActive);
+
+      &::before {
+        transform: translateX(
+          calc(var(--switchWidth) - var(--switchCircleWidth) - 4px)
+        );
+      }
+    }
+  }
+}
