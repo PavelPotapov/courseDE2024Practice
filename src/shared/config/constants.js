@@ -1,6 +1,19 @@
 const API_ENDPOINTS = {
-  posts: {
-    news: "newsPosts",
+  config: {
+    list: "config/list/",
+  },
+  marks: {
+    list: "marks/list/",
+    detail: "marks/detail",
+    create: "marks/create/",
+    update: "marks/update/",
+    delete: "marks/delete",
+  },
+  routes: {
+    list: "routes/list/",
+    detail: "routes/detail",
+    create: "routes/create/",
+    delete: "routes/delete",
   },
 };
 

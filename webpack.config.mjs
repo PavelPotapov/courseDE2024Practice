@@ -11,7 +11,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const baseDir = path.resolve(__dirname, "./src");
+// const baseDir = path.resolve(__dirname, "./src");
 const buildDir = path.resolve(__dirname, "./build");
 const publicDir = path.resolve(__dirname, "./public");
 const pagesDir = path.resolve(__dirname, "./src/pages");
@@ -21,9 +21,9 @@ const folders = ["fonts", "assets"];
 const copyFolders = (folders) => {
   return folders.map((folder) => {
     const fromPath = path.resolve(publicDir, `./${folder}`);
-    const toPath = buildDir;
+    const toPath = path.resolve(buildDir, `./${folder}`);
     if (!fs.existsSync(fromPath)) {
-      console.warn(`Source folder: ${fromPath} does not exist`);
+      console.debug(`Source folder: ${fromPath} does not exist`);
     }
     return {
       from: fromPath,
@@ -93,6 +93,9 @@ export default async (env, { mode }) => {
       }),
       new CopyPlugin({
         patterns: copyFolders(folders),
+      }),
+      new webpack.IgnorePlugin({
+        resourceRegExp: /mockServiceWorker\.js$/, //игнорируем файл
       }),
     ],
     resolve: {

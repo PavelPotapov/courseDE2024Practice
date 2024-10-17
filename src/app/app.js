@@ -26,7 +26,5 @@ function domReady() {
 Promise.all([initMSW(), domReady()]).then(() => {
   const apiClient = new ApiClient(API_URL);
 
-  apiClient
-    .get(API_ENDPOINTS.posts.news, { id: 5 })
-    .then((res) => console.debug(res));
+  apiClient.get(API_ENDPOINTS.marks.list).then((res) => console.debug(res));
 });

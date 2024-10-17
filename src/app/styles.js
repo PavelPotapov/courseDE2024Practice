@@ -1,6 +1,32 @@
 const files = await import.meta.webpackContext("../", {
-  regExp: /\.pcss/,
+  regExp: /\.pcss$/,
   mode: "eager",
 });
-const styles = await Promise.all(files.keys().map((path) => files(path)));
+
+// Определите массив с приоритетами
+const priorityOrder = [
+  "./app/styles/vars.pcss", // Полный путь к файлу
+  "./app/styles/global.pcss", // Полный путь к файлу
+  // добавьте другие файлы по мере необходимости
+];
+
+// Получите все файлы
+const allFiles = files.keys();
+
+// Фильтруйте файлы, чтобы разделить на те, которые в приоритете, и остальные
+const prioritizedStyles = priorityOrder.filter(
+  (name) => allFiles.includes(name) // Проверяем на соответствие полному пути
+);
+
+// Отфильтруйте остальные стили
+const otherStyles = allFiles.filter(
+  (path) => !prioritizedStyles.includes(path)
+);
+
+// Объедините массивы, чтобы сначала загружались приоритетные стили
+const orderedFiles = [...prioritizedStyles, ...otherStyles];
+
+// Загружайте стили в нужном порядке
+const styles = await Promise.all(orderedFiles.map((path) => files(path)));
+
 export { styles };

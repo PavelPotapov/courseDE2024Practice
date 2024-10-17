@@ -3,7 +3,6 @@ import prettierConfig from "eslint-config-prettier";
 import prettier from "eslint-plugin-prettier";
 
 const customRules = {
-  "linebreak-style": ["error", "unix"],
   "@stylistic/js/padded-blocks": "off",
 };
 
