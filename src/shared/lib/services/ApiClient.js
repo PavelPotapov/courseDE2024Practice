@@ -1,9 +1,15 @@
 /**
- *
+ * Api client
  */
 export class ApiClient {
+  static instance;
+
   constructor(baseURL) {
+    if (ApiClient.instance) {
+      return ApiClient.instance;
+    }
     this.baseURL = baseURL;
+    ApiClient.instance = this;
   }
 
   // Преобразование объекта параметров в строку запроса
