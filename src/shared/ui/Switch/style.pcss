@@ -8,14 +8,24 @@
   --switchCircleHeight: 2.5rem;
   --switckCircleColor: var(--colorWhite);
   --switchTransition: all 0.4s;
+  --swithTypeDisplay: inline-flex;
+  --switchFlexDirection: row;
+  --switchGap: 1rem;
   position: relative;
-  display: inline-block;
-  width: var(--switchWidth);
-  height: var(--switchHeight);
+  display: var(--swithTypeDisplay);
+  align-items: center;
+  flex-direction: var(--switchFlexDirection);
+  gap: var(--switchGap);
+  cursor: pointer;
+
+  &:has(&__label:empty) {
+    --switchGap: 0;
+  }
 
   &__slider {
-    position: absolute;
-    inset: 0;
+    width: var(--switchWidth);
+    height: var(--switchHeight);
+    position: relative;
     cursor: pointer;
     background-color: var(--colorGray);
     border-radius: var(--switchBorderRadius);
@@ -45,5 +55,9 @@
         );
       }
     }
+  }
+
+  &--isRightLabel {
+    --switchFlexDirection: row-reverse;
   }
 }

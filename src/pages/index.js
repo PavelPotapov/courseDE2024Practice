@@ -21,8 +21,23 @@ const IndexPage = () => `
       <main>
         <p>Hello world! 12</p>
         ${Button({ text: "HI!" })}
-        ${Switch({})}
+        ${Switch({
+          label: "Привет мир",
+          extraInputAttrs: [
+            { name: "name", value: "rememberMe" },
+            { name: "form", value: "formAuth" },
+          ],
+        })}
+        
         ${CinemaIcon()}
+        ${Switch({
+          label: "Привет мир",
+          extraClasses: ["switch--isRightLabel"],
+          extraInputAttrs: [
+            { name: "name", value: "rememberMe" },
+            { name: "form", value: "formAuth" },
+          ],
+        })}
       </main>
     </body>
   </html>
