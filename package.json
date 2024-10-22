@@ -53,5 +53,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "dependencies": {
+    "choices.js": "^11.0.2"
   }
 }

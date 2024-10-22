@@ -64,7 +64,7 @@ export default async (env, { mode }) => {
     module: {
       rules: [
         {
-          test: /\.pcss$/,
+          test: /\.(css|pcss)$/,
           use: [
             isDev ? "style-loader" : MiniCssExtractPlugin.loader,
             {
