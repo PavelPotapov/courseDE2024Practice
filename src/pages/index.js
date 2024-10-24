@@ -1,6 +1,6 @@
 import { Button } from "#shared/ui/Button/index";
 import { CustomSelect } from "#shared/ui/CustomSelect/index";
-import { CinemaIcon } from "#shared/ui/Icons/index";
+import { CinemaIcon, CheckIcon, CancelIcon } from "#shared/ui/Icons/index";
 import { Switch } from "#shared/ui/Switch/index";
 
 /**
@@ -21,7 +21,8 @@ const IndexPage = () => `
       </header>
       <main>
         <p>Hello world! 12</p>
-        ${Button({ text: "HI!" })}
+        ${Button({ text: "Да", iconSlot: CheckIcon(), extraClasses: ["btn--isGreenLightIcon"] })}
+        ${Button({ text: "Нет", iconSlot: CancelIcon(), extraClasses: ["btn--isRedIcon"] })}
         ${Switch({
           label: "Привет мир",
           extraInputAttrs: [

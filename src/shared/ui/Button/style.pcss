@@ -1,7 +1,48 @@
 .btn {
-  background-color: rgb(43, 12, 214);
+  --btnWidth: max-content;
+  --btnHeigth: auto;
+  --btnBgColor: transparent;
+  --btnBgHoverColor: var(--colorGrayLight);
+  --btnFontSize: 2rem;
+  --btnLineHeight: 121%;
+  --btnGapIcon: 1.25rem;
+  --btnBorder: none;
+  --btnPdBlock: 1.5rem;
+  --btnPdInline: 2rem;
+  --btnCursor: pointer;
+  --btnBorderRadius: 1rem;
+  --btnColor: var(--colorBlack);
+  --btnIconColor: var(--colorBlack);
+  display: inline-flex;
+  gap: var(--btnGapIcon);
+  justify-content: center;
+  align-items: center;
+  width: var(--btnWidth);
+  height: var(--btnHeigth);
+  padding: var(--btnPdBlock) var(--btnPdInline);
+  border: var(--btnBorder);
+  border-radius: var(--btnBorderRadius);
+  background-color: var(--btnBgColor);
+  font-size: var(--btnFontSize);
+  color: var(--btnColor);
+  cursor: var(--btnCursor);
 
-  &__text {
-    color: rgb(182, 34, 34);
+  &:hover {
+    background-color: var(--btnBgHoverColor);
   }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    color: var(--btnIconColor);
+  }
+
+  &--isRedIcon {
+    --btnIconColor: var(--colorRed);
+  }
+
+  &--isGreenLightIcon {
+    --btnIconColor: var(--colorGreenLight);
+  }
+  
 }

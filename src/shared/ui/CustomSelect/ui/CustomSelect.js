@@ -16,7 +16,7 @@ export const CustomSelect = ({
   cfg = {},
 } = {}) => {
   return `
-    <select data-js-custom-select=${JSON.stringify(cfg)} class="customSelect ${extraClasses.join(" ")}" ${getGeneratedAttrs(extraAttrs)}>
+    <select data-js-custom-select='${JSON.stringify(cfg)}' class="customSelect ${extraClasses.join(" ")}" ${getGeneratedAttrs(extraAttrs)}>
         <option value="" disabled selected hidden>${placeholder}</option>
         ${options.map((option) => `<option value="${option.value}">${option.label}</option>`).join("")}
     </select>

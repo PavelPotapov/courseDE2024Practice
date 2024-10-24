@@ -12,17 +12,22 @@ export class CustomSelectModel {
     itemSelectText: "",
   };
 
+  static instances = [];
+
   constructor() {
     this.selects = document.querySelectorAll(this.selectors.instance);
-    this.instances = [];
     this.selects.forEach((select) => {
-      const cfg = getCfg(select, "data-js-custom-select");
-      this.instances.push(
-        new Choices(select, {
-          ...CustomSelectModel.defaultCfg,
-          ...cfg,
-        })
-      );
+      CustomSelectModel.createCustomSelect(select);
     });
+  }
+
+  static createCustomSelect(node) {
+    const cfg = getCfg(node, "data-js-custom-select");
+    CustomSelectModel.instances.push(
+      new Choices(node, {
+        ...CustomSelectModel.defaultCfg,
+        ...cfg,
+      })
+    );
   }
 }
