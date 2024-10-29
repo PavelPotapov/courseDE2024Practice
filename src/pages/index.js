@@ -1,6 +1,6 @@
 import { Button } from "#shared/ui/Button/index";
 import { CustomSelect } from "#shared/ui/CustomSelect/index";
-import { CinemaIcon, CheckIcon, CancelIcon } from "#shared/ui/Icons/index";
+import { CheckIcon, CancelIcon } from "#shared/ui/Icons/index";
 import { Switch } from "#shared/ui/Switch/index";
 
 /**
@@ -21,55 +21,89 @@ const IndexPage = () => `
       </header>
       <main>
         <p>Hello world! 12</p>
-        ${Button({ text: "Да", iconSlot: CheckIcon(), extraClasses: ["btn--isGreenLightIcon"] })}
-        ${Button({ text: "Нет", iconSlot: CancelIcon(), extraClasses: ["btn--isRedIcon"] })}
-        ${Switch({
-          label: "Привет мир",
-          extraInputAttrs: [
-            { name: "name", value: "rememberMe" },
-            { name: "form", value: "formAuth" },
-          ],
-        })}
-        
-        ${CinemaIcon()}
-        ${Switch({
-          label: "Привет мир",
-          extraClasses: ["switch--isRightLabel"],
-          extraInputAttrs: [
-            { name: "name", value: "rememberMe" },
-            { name: "form", value: "formAuth" },
-          ],
-        })}
+        <div class="isFlex mb16 gap8">
+          ${Button({ text: "Да", iconSlot: CheckIcon(), extraClasses: ["btn--isGreenLightIcon"] })}
+          ${Button({ text: "Нет", iconSlot: CancelIcon(), extraClasses: ["btn--isRedIcon"] })}
+        </div>
+        <div class="isFlex mb16 gap8">
+          ${Switch({
+            label: "Привет мир",
+            extraInputAttrs: [
+              { name: "name", value: "rememberMe" },
+              { name: "form", value: "formAuth" },
+            ],
+          })}
+          
+          ${Switch({
+            label: "Привет мир",
+            extraClasses: ["switch--isRightLabel"],
+            extraInputAttrs: [
+              { name: "name", value: "rememberMe" },
+              { name: "form", value: "formAuth" },
+            ],
+          })}
+        </div>
 
-        <div>${CustomSelect({
-          options: [
-            { label: "test", value: "1" },
-            { label: "new_test", value: "2" },
-          ],
-          cfg: {
-            searchEnabled: true,
-          },
-        })}</div>
-
-        <div>${CustomSelect({
-          options: [
-            { label: "test", value: "1" },
-            { label: "new_test", value: "2" },
-          ],
-          cfg: {
-            searchEnabled: true,
-          },
-        })}</div>
-
-        <div>${CustomSelect({
-          options: [
-            { label: "test", value: "1" },
-            { label: "new_test", value: "2" },
-          ],
-          cfg: {
-            searchEnabled: true,
-          },
-        })}</div>
+        <div style="max-width: 279px">
+          ${CustomSelect({
+            extraAttrs: [{ name: "id", value: "select-type-mark" }],
+            cfg: {
+              preset: "default",
+              itemSelectText: "",
+              searchEnabled: false,
+              choices: [
+                {
+                  value: "Ресторан",
+                  label: "Ресторан",
+                  selected: true,
+                  customProperties: {
+                    icon: CheckIcon(),
+                  },
+                },
+                {
+                  value: "Ресторан1",
+                  label: "Ресторан1",
+                  selected: false,
+                  customProperties: {
+                    icon: CheckIcon(),
+                  },
+                },
+                {
+                  value: "Ресторан2",
+                  label: "Ресторан2",
+                  selected: false,
+                  customProperties: {
+                    icon: CheckIcon(),
+                  },
+                },
+                {
+                  value: "Ресторан3",
+                  label: "Ресторан3",
+                  selected: false,
+                  customProperties: {
+                    icon: CheckIcon(),
+                  },
+                },
+                {
+                  value: "Ресторан4",
+                  label: "Ресторан4",
+                  selected: false,
+                  customProperties: {
+                    icon: CheckIcon(),
+                  },
+                },
+                {
+                  value: "Бар",
+                  label: "Бар",
+                  selected: false,
+                  customProperties: {
+                    icon: `${CheckIcon({ iconColor: "var(--colorRed)" })}`,
+                  },
+                },
+              ],
+            },
+          })}
+        </div>
       </main>
     </body>
   </html>

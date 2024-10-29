@@ -1,7 +1,6 @@
-import "choices.js/public/assets/styles/choices.css";
 import "./styles.js";
-import { ApiClient } from "../shared/lib/services/ApiClient.js";
 import { API_URL, API_ENDPOINTS } from "#shared/config/constants";
+import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { CustomSelectModel } from "#shared/ui/CustomSelect/model/index.js";
 
 async function initMSW() {
