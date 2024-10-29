@@ -7,6 +7,7 @@ async function initMSW() {
   if (process.env.NODE_ENV === "development") {
     const { getMocks } = await import("#shared/api/browser");
     await getMocks();
+
     console.debug("msw ready");
   } else {
     return Promise.resolve();
@@ -26,7 +27,7 @@ function domReady() {
 Promise.all([initMSW(), domReady()]).then(() => {
   window.App = {};
   const apiClient = new ApiClient(API_URL);
-  window.App.CustomSelects = new CustomSelectModel();
+  new CustomSelectModel();
   window.App.CustomSelectModel = CustomSelectModel;
   apiClient.get(API_ENDPOINTS.marks.list).then((res) => console.debug(res));
 });

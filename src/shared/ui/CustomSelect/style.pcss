@@ -52,27 +52,45 @@
   }
 
   &__choice {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border-radius: var(--customSelectBorderRadius);
+
     /* stylelint-disable-next-line selector-class-pattern */
     &.is-highlighted {
       background-color: var(--colorGrayLight) !important;
     }
-    border-radius: var(--customSelectBorderRadius);
+  }
+
+  &__item {
+    &--selectable {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  }
+
+
+  &__choiceIcon {
+    display: inline-flex;
+    align-items: center;
   }
 }
 
 /* Переопределяем галочку */
 .choices[data-type*="select-one"]::after {
   content: "";
-  display: inline-block; /* Или block, в зависимости от вашего дизайна */
-  width: 13px; /* Ширина иконки */
-  height: 8px; /* Высота иконки */
+  display: inline-block; 
+  width: 13px;
+  height: 8px;
   background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="13" height="8" viewBox="0 0 13 8" fill="none"%3E%3Cpath d="M1 6.5L6.5 1.5L12 6.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/%3E%3C/svg%3E');
-  background-size: cover; /* Или contain, в зависимости от ваших нужд */
+  background-size: cover;
   background-repeat: no-repeat;
-  position: absolute; /* Позиционируем элемент */
-  top: 50%; /* Позиция по вертикали */
-  transform: translateY(-50%); /* Центрируем по вертикали */
-  pointer-events: none; /* Чтобы не блокировать клики на элементе */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-25%); 
+  pointer-events: none;
   border-color: transparent;
   transition: all 0.3s;
 }
@@ -81,7 +99,7 @@
 .choices[data-type*="select-one"].is-open::after {
   border-color: transparent;
   margin-top: -3px;
-  transform: translateY(-50%) scaleY(-1);
+  transform: translateY(-25%) scaleY(-1);
 }
 
 @keyframes collapseInnerChoices {

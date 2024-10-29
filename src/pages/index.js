@@ -1,6 +1,14 @@
 import { Button } from "#shared/ui/Button/index";
 import { CustomSelect } from "#shared/ui/CustomSelect/index";
-import { CheckIcon, CancelIcon } from "#shared/ui/Icons/index";
+import {
+  CheckIcon,
+  CancelIcon,
+  BarIcon,
+  CinemaIcon,
+  RestIcon,
+  MusicIcon,
+  TheatreIcon,
+} from "#shared/ui/Icons/index";
 import { Switch } from "#shared/ui/Switch/index";
 
 /**
@@ -57,39 +65,31 @@ const IndexPage = () => `
                   label: "Ресторан",
                   selected: true,
                   customProperties: {
-                    icon: CheckIcon(),
+                    icon: RestIcon({ iconColor: "var(--colorRed)" }),
                   },
                 },
                 {
-                  value: "Ресторан1",
-                  label: "Ресторан1",
+                  value: "Ночной клуб",
+                  label: "Ночной клуб",
                   selected: false,
                   customProperties: {
-                    icon: CheckIcon(),
+                    icon: MusicIcon({ iconColor: "var(--colorRed)" }),
                   },
                 },
                 {
-                  value: "Ресторан2",
-                  label: "Ресторан2",
+                  value: "Театр",
+                  label: "Театр",
                   selected: false,
                   customProperties: {
-                    icon: CheckIcon(),
+                    icon: TheatreIcon({ iconColor: "var(--colorRed)" }),
                   },
                 },
                 {
-                  value: "Ресторан3",
-                  label: "Ресторан3",
+                  value: "Кино",
+                  label: "Кино",
                   selected: false,
                   customProperties: {
-                    icon: CheckIcon(),
-                  },
-                },
-                {
-                  value: "Ресторан4",
-                  label: "Ресторан4",
-                  selected: false,
-                  customProperties: {
-                    icon: CheckIcon(),
+                    icon: CinemaIcon({ iconColor: "var(--colorPrimary)" }),
                   },
                 },
                 {
@@ -97,7 +97,58 @@ const IndexPage = () => `
                   label: "Бар",
                   selected: false,
                   customProperties: {
-                    icon: `${CheckIcon({ iconColor: "var(--colorRed)" })}`,
+                    icon: BarIcon({ iconColor: "var(--colorRed)" }),
+                  },
+                },
+              ],
+            },
+          })}
+
+          ${CustomSelect({
+            extraAttrs: [{ name: "id", value: "select-type-mark" }],
+            cfg: {
+              preset: "fancy",
+              itemSelectText: "",
+              searchEnabled: false,
+              choices: [
+                {
+                  value: "Ресторан",
+                  label: "Ресторан",
+                  selected: true,
+                  customProperties: {
+                    icon: RestIcon({ iconColor: "var(--colorRed)" }),
+                  },
+                },
+                {
+                  value: "Ночной клуб",
+                  label: "Ночной клуб",
+                  selected: false,
+                  customProperties: {
+                    icon: MusicIcon({ iconColor: "var(--colorRed)" }),
+                  },
+                },
+                {
+                  value: "Театр",
+                  label: "Театр",
+                  selected: false,
+                  customProperties: {
+                    icon: TheatreIcon({ iconColor: "var(--colorRed)" }),
+                  },
+                },
+                {
+                  value: "Кино",
+                  label: "Кино",
+                  selected: false,
+                  customProperties: {
+                    icon: CinemaIcon({ iconColor: "var(--colorPrimary)" }),
+                  },
+                },
+                {
+                  value: "Бар",
+                  label: "Бар",
+                  selected: false,
+                  customProperties: {
+                    icon: BarIcon({ iconColor: "var(--colorRed)" }),
                   },
                 },
               ],

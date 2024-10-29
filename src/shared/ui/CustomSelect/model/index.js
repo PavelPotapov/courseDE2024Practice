@@ -8,7 +8,9 @@ export class CustomSelectModel {
     instance: "[data-js-custom-select]",
   };
 
-  static instances = [];
+  static instance;
+
+  static choicesInstances = [];
 
   static presets = {
     default: {
@@ -30,7 +32,7 @@ export class CustomSelectModel {
           data-value="${data.value}" 
           ${data.active ? 'aria-selected="true"' : ""}
           ${data.disabled ? 'aria-disabled="true"' : ""}>
-            <span>${data?.customProperties?.icon ?? ""}</span><span>${data.label}</span>
+            <span class="customSelect__choiceIcon">${data?.customProperties?.icon ?? ""}</span><span>${data.label}</span>
           </div>
         `);
       },
@@ -40,6 +42,7 @@ export class CustomSelectModel {
         { strToEl, escapeForTemplate, getClassNames },
         itemSelectText
       ) => {
+        console.debug(data, classNames, "Пришли даные");
         return strToEl(`
           <div class="${getClassNames(classNames.item).join(" ")} 
             ${getClassNames(classNames.itemChoice).join(" ")} 
@@ -53,7 +56,7 @@ export class CustomSelectModel {
             ${data.disabled ? 'data-choice-disabled aria-disabled="true"' : "data-choice-selectable"}
             data-id="${data.id}" 
             data-value="${data.value}">
-            <span>${data?.customProperties?.icon ?? ""}</span><span>${data.label}</span>
+            <span class="customSelect__choiceIcon">${data?.customProperties?.icon ?? ""}</span><span>${data.label}</span>
           </div>
         `);
       },
@@ -109,6 +112,10 @@ export class CustomSelectModel {
       itemChoice: ["choices__item--choice", "customSelect__choice"],
       containerInner: ["choices__inner", "customSelect__inner"],
       list: ["choices__list", "customSelect__list"],
+      itemSelectable: [
+        "choices__item--selectable",
+        "customSelect__item--selectable",
+      ],
     },
     callbackOnCreateTemplates: function (
       strToEl,
@@ -166,23 +173,25 @@ export class CustomSelectModel {
         };
       })(choicesConfig.callbackOnCreateTemplates);
     }
-    CustomSelectModel.instances.push(
+    CustomSelectModel.choicesInstances.push(
       new Choices(node, {
         ...choicesConfig,
       })
     );
   }
 
-  static getInstance(node) {
-    return CustomSelectModel.instances.find(
+  static getChoiceInstance(node) {
+    return CustomSelectModel.choicesInstances.find(
       (instance) => instance.passedElement.element === node
     );
   }
 
   constructor() {
+    if (CustomSelectModel.instance) return CustomSelectModel.instance;
     this.selects = document.querySelectorAll(this.selectors.instance);
     this.selects.forEach((select) => {
       CustomSelectModel.createCustomSelect(select);
     });
+    CustomSelectModel.instance = this;
   }
 }
