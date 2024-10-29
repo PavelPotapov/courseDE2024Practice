@@ -5,9 +5,10 @@ export default {
     "postcss-import", // Для поддержки @import
     "postcss-mixins", // Для миксинов
     "postcss-custom-media", // Для кастомных медиа-запросов
-    "postcss-nested", // Для вложенности в стилях
+    "postcss-nested",
     postcssPresetEnv({
-      features: {},
+      stage: 3,
+      browsers: "last 2 versions",
     }),
   ],
 };

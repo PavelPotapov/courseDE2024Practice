@@ -3,7 +3,7 @@ import { getCfg } from "#shared/lib/utils";
 /**
  * Модель для создания кастомного селекта на основе choices.js
  */
-export class CustomSelectModel {
+export class ChoiceSelectModel {
   selectors = {
     instance: "[data-js-custom-select]",
   };
@@ -125,8 +125,8 @@ export class CustomSelectModel {
     ) {
       const presetName = preset || "default";
       const { createItem, createChoice } =
-        CustomSelectModel.presets[presetName] ||
-        CustomSelectModel.presets.default;
+        ChoiceSelectModel.presets[presetName] ||
+        ChoiceSelectModel.presets.default;
 
       return {
         item: (classNames, data) =>
@@ -150,11 +150,11 @@ export class CustomSelectModel {
     },
   };
 
-  static createCustomSelect(node) {
+  static createChoiceSelect(node) {
     const cfg = getCfg(node, "data-js-custom-select");
     const { disableTemplates, preset, ...restCfg } = cfg;
     const choicesConfig = {
-      ...CustomSelectModel.defaultCfg,
+      ...ChoiceSelectModel.defaultCfg,
       ...restCfg,
     };
     //Если не хотим использовать кастомный шаблон - передаем явно это в конфиге
@@ -173,7 +173,7 @@ export class CustomSelectModel {
         };
       })(choicesConfig.callbackOnCreateTemplates);
     }
-    CustomSelectModel.choicesInstances.push(
+    ChoiceSelectModel.choicesInstances.push(
       new Choices(node, {
         ...choicesConfig,
       })
@@ -181,17 +181,17 @@ export class CustomSelectModel {
   }
 
   static getChoiceInstance(node) {
-    return CustomSelectModel.choicesInstances.find(
+    return ChoiceSelectModel.choicesInstances.find(
       (instance) => instance.passedElement.element === node
     );
   }
 
   constructor() {
-    if (CustomSelectModel.instance) return CustomSelectModel.instance;
+    if (ChoiceSelectModel.instance) return ChoiceSelectModel.instance;
     this.selects = document.querySelectorAll(this.selectors.instance);
     this.selects.forEach((select) => {
-      CustomSelectModel.createCustomSelect(select);
+      ChoiceSelectModel.createChoiceSelect(select);
     });
-    CustomSelectModel.instance = this;
+    ChoiceSelectModel.instance = this;
   }
 }
