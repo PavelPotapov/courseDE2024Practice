@@ -26,7 +26,7 @@ const mergedConfig = [
       "no-console": [
         "error",
         {
-          allow: ["debug", "error"],
+          allow: ["debug", "error", "warn"],
         },
       ],
     },

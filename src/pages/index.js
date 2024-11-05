@@ -93,7 +93,7 @@ const IndexPage = () => `
                   },
                 },
                 {
-                  value: "Бар",
+                  value: "1",
                   label: "Бар",
                   selected: false,
                   customProperties: {

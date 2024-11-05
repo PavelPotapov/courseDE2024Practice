@@ -42,7 +42,6 @@ export class ChoiceSelectModel {
         { strToEl, escapeForTemplate, getClassNames },
         itemSelectText
       ) => {
-        console.debug(data, classNames, "Пришли даные");
         return strToEl(`
           <div class="${getClassNames(classNames.item).join(" ")} 
             ${getClassNames(classNames.itemChoice).join(" ")} 
