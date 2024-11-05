@@ -1,46 +1,38 @@
-import { createStore } from "#shared/store/store";
+import { StoreService } from "#shared/lib/services/StoreService";
 
 export class MapApp {
-  constructor(storeName) {
-    this.store = createStore(storeName);
-    this.subscribeOnStoreChange();
+  constructor(storageName) {
+    this.storeService = new StoreService(storageName);
+    this.subscribeForStoreService();
+
     console.debug(
-      "Тут будем реализовывать логику нашего виджета, вот готовый стор ->",
-      this.store
+      "Тут будем реализовывать логику нашего виджета, вот готовый стор сервис ->",
+      this.storeService
     );
+
     setTimeout(() => {
-      this.addMarkerToStore({ id: 2, type: "test", cords: [2, 45] });
-    }, 7500);
+      this.storeService.updateStore("addMarker", { id: 33144, value: "test" });
+    }, 5000);
   }
 
-  addMarkerToStore(marker) {
-    this.store.getState().addMarker(marker);
+  handleMarkersChanged() {
+    console.debug("markers changed", this.storeService.getMarkers());
   }
 
-  subscribeOnStoreChange() {
-    this.subscribeToMarkersChanged();
-    this.subscribeToFiltersChanged();
+  handleFiltersChanged() {
+    console.debug("markers changed", this.storeService.getFilters());
   }
 
-  subscribeToMarkersChanged() {
-    this.markerSubscription = this.store.subscribe(
-      (state) => state.markers,
-      (markers) => {
-        console.debug("Состояние маркеров изменилось:", markers);
-      }
-    );
+  subscribeForStoreService() {
+    this.markerSubscription = this.storeService.subscribeToMarkers(() => {
+      this.handleMarkersChanged();
+    });
+    this.filterSubscription = this.storeService.subscribeToFilters(() => {
+      this.handleFiltersChanged();
+    });
   }
 
-  subscribeToFiltersChanged() {
-    this.filterSubscription = this.store.subscribe(
-      (state) => state.activeFilters,
-      (filters) => {
-        console.debug("Состояние фильтров изменилось:", filters);
-      }
-    );
-  }
-
-  unsubscribeOnStoreChange() {
+  unsubscribeFromStoreService() {
     this.markerSubscription?.();
     this.subscribeOnStoreChange?.();
   }
