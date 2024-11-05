@@ -17,7 +17,7 @@ export const createStore = (storageName) => {
           addMarker: (marker) => {
             set((state) => {
               // Проверка, есть ли уже маркер с таким ID
-              const exists = state.markers.some((m) => m.id === marker.id);
+              const exists = state.markers.some((m) => m?.id === marker.id);
               if (exists) {
                 console.warn(`Marker with ID ${marker.id} already exists.`);
                 return state; // Не изменяем состояние, если маркер с таким ID уже существует
