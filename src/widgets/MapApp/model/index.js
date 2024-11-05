@@ -9,11 +9,11 @@ export class MapApp {
       this.store
     );
     setTimeout(() => {
-      this.addMarker({ id: 2, type: "test", cords: [2, 45] });
+      this.addMarkerToStore({ id: 2, type: "test", cords: [2, 45] });
     }, 7500);
   }
 
-  addMarker(marker) {
+  addMarkerToStore(marker) {
     this.store.getState().addMarker(marker);
   }
 
