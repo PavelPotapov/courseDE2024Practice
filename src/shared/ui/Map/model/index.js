@@ -18,8 +18,22 @@ export class YandexMap {
     this.instance = null;
   }
 
+  createMap() {
+    this.instance = new window.ymaps.Map(
+      document.querySelector(this.containerSelector),
+      {
+        center: this.center,
+        zoom: this.zoom,
+      }
+    );
+    return this.instance;
+  }
+
   async initMap() {
     try {
+      if (window.ymaps) {
+        return this.createMap();
+      }
       //Ждём когда подгрузится внешний скрипт для Yandex API
       await getExternalScript(
         `${this.apiUrl}=${this.apiKey}&lang=${this.lang}`
@@ -28,14 +42,7 @@ export class YandexMap {
       await new Promise((resolve, reject) => {
         window.ymaps.ready(() => {
           try {
-            this.instance = new window.ymaps.Map(
-              document.querySelector(this.containerSelector),
-              {
-                center: this.center,
-                zoom: this.zoom,
-              }
-            );
-            resolve(this.instance);
+            resolve(this.createMap());
           } catch (e) {
             reject(e);
           }
