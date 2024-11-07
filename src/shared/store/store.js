@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { createStore as create } from "zustand";
 import { persist, subscribeWithSelector } from "zustand/middleware";
 
 /**

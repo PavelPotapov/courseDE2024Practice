@@ -1,8 +1,7 @@
-import { StoreService } from "#shared/lib/services/StoreService";
-
 export class MapApp {
-  constructor(storageName) {
-    this.storeService = new StoreService(storageName);
+  constructor(storeService, apiClient) {
+    this.apiClient = apiClient;
+    this.storeService = storeService;
     this.subscribeForStoreService();
 
     console.debug(
