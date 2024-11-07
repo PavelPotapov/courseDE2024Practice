@@ -14,14 +14,12 @@ export class MapApp {
       zoom: 10,
     });
 
-    setTimeout(() => {
-      this.yandexMap
-        .initMap()
-        .then((res) => {
-          console.debug("Карта инциализирована", res, this.yandexMap.instance);
-        })
-        .catch((e) => console.error(e, "!!!"));
-    }, 100);
+    this.yandexMap
+      .initMap()
+      .then((res) => {
+        console.debug("Карта инциализирована", res, this.yandexMap.instance);
+      })
+      .catch((e) => console.error(e));
 
     this.subscribeForStoreService();
   }

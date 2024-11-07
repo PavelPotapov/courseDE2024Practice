@@ -18,28 +18,33 @@ export class YandexMap {
     this.instance = null;
   }
 
-  initMap() {
-    return getExternalScript(`${this.apiUrl}=${this.apiKey}&lang=${this.lang}`)
-      .then(() => {
-        return new Promise((resolve, reject) => {
-          window.ymaps.ready(() => {
-            try {
-              this.instance = new window.ymaps.Map(
-                document.querySelector(this.containerSelector),
-                {
-                  center: this.center,
-                  zoom: this.zoom,
-                }
-              );
-              resolve(this.instance);
-            } catch (e) {
-              reject(e);
-            }
-          });
+  async initMap() {
+    try {
+      //Ждём когда подгрузится внешний скрипт для Yandex API
+      await getExternalScript(
+        `${this.apiUrl}=${this.apiKey}&lang=${this.lang}`
+      );
+      //Ждём когда будет готова карта (ожидаем ymaps -> карту)
+      await new Promise((resolve, reject) => {
+        window.ymaps.ready(() => {
+          try {
+            this.instance = new window.ymaps.Map(
+              document.querySelector(this.containerSelector),
+              {
+                center: this.center,
+                zoom: this.zoom,
+              }
+            );
+            resolve(this.instance);
+          } catch (e) {
+            reject(e);
+          }
         });
-      })
-      .catch((error) => {
-        console.error("Ошибка при загрузке API Яндекс.Карт:", error);
       });
+      // Возвращаем карту, если успешно инициализирована
+      return this.instance;
+    } catch (error) {
+      console.error("Ошибка при загрузке API Яндекс.Карт:", error);
+    }
   }
 }

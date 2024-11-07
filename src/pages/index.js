@@ -155,6 +155,7 @@ const IndexPage = () => `
             },
           })}
         </div>
+        <div id="map1" style="width: 800px; aspect-ratio: 1 / 1"></div>
       </main>
     </body>
   </html>
