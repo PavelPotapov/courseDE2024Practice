@@ -18,8 +18,11 @@ export class MapApp {
       .initMap()
       .then((res) => {
         console.debug("Карта инциализирована", res, this.yandexMap.instance);
+        this.yandexMap.addMark();
       })
       .catch((e) => console.error(e));
+
+    this.yandexMap.addMark();
 
     this.subscribeForStoreService();
   }

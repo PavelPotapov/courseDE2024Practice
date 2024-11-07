@@ -64,6 +64,13 @@ export default async (env, { mode }) => {
     module: {
       rules: [
         {
+          test: /\.js$/, // Для всех .js файлов
+          exclude: /node_modules/, // Игнорируем node_modules
+          use: {
+            loader: "babel-loader", // Используем babel-loader
+          },
+        },
+        {
           test: /\.(css|pcss)$/,
           use: [
             isDev ? "style-loader" : MiniCssExtractPlugin.loader,
