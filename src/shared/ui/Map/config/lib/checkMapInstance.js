@@ -3,6 +3,7 @@ export function checkMapInstance(target, propertyKey, descriptor) {
 
   descriptor.value = function (...args) {
     if (!this.isExistMapInstance()) {
+      console.warn("Нет инстанса карты");
       return;
     }
     return originalMethod.apply(this, args);

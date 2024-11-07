@@ -70,7 +70,6 @@ export class YandexMap {
 
   @checkMapInstance
   addMark() {
-    if (!this.isExistMapInstance) return;
     const myPlacemark = new window.ymaps.Placemark([55.7, 37.6], {
       balloonContentHeader: "Однажды",
       balloonContentBody: "В студеную зимнюю пору",
