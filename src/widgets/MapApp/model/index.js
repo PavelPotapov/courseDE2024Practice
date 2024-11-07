@@ -1,17 +1,24 @@
+import { YandexMap } from "#shared/ui/Map/model";
+
 export class MapApp {
   constructor(storeService, apiClient) {
     this.apiClient = apiClient;
     this.storeService = storeService;
-    this.subscribeForStoreService();
 
-    console.debug(
-      "Тут будем реализовывать логику нашего виджета, вот готовый стор сервис ->",
-      this.storeService
-    );
+    this.yandexMap = new YandexMap({
+      containerSelector: "#map1",
+      apiUrl: "https://api-maps.yandex.ru/2.1/?apikey",
+      apiKey: "b4a559eb-311c-4123-8025-480ecdc62549",
+      lang: "ru_RU",
+      center: [55.751574, 37.573856],
+      zoom: 10,
+    });
 
     setTimeout(() => {
-      this.storeService.updateStore("addMarker", { id: 33144, value: "test" });
-    }, 5000);
+      this.yandexMap.initMap();
+    }, 8000);
+
+    this.subscribeForStoreService();
   }
 
   handleMarkersChanged() {
