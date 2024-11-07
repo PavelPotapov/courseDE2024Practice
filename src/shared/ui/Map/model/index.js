@@ -19,9 +19,24 @@ export class YandexMap {
   }
 
   initMap() {
-    getExternalScript(`${this.apiUrl}=${this.apiKey}&lang=${this.lang}`)
+    return getExternalScript(`${this.apiUrl}=${this.apiKey}&lang=${this.lang}`)
       .then(() => {
-        console.debug("Ура, мы можем работать с картой");
+        return new Promise((resolve, reject) => {
+          window.ymaps.ready(() => {
+            try {
+              this.instance = new window.ymaps.Map(
+                document.querySelector(this.containerSelector),
+                {
+                  center: this.center,
+                  zoom: this.zoom,
+                }
+              );
+              resolve(this.instance);
+            } catch (e) {
+              reject(e);
+            }
+          });
+        });
       })
       .catch((error) => {
         console.error("Ошибка при загрузке API Яндекс.Карт:", error);

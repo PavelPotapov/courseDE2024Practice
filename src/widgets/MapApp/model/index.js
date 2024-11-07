@@ -15,8 +15,13 @@ export class MapApp {
     });
 
     setTimeout(() => {
-      this.yandexMap.initMap();
-    }, 8000);
+      this.yandexMap
+        .initMap()
+        .then((res) => {
+          console.debug("Карта инциализирована", res, this.yandexMap.instance);
+        })
+        .catch((e) => console.error(e, "!!!"));
+    }, 100);
 
     this.subscribeForStoreService();
   }
