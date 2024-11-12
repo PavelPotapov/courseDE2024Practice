@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from "#shared/config/constants";
 import { YandexMap } from "#shared/ui/Map/model";
 
 export class MapApp {
@@ -16,15 +17,19 @@ export class MapApp {
 
     this.yandexMap
       .initMap()
-      .then((res) => {
-        console.debug("Карта инциализирована", res, this.yandexMap.instance);
-        this.yandexMap.addMark();
+      .then(async () => {
+        const marks = await this.getMarks();
+        this.storeService.updateStore("addMarkers", marks);
       })
       .catch((e) => console.error(e));
 
-    this.yandexMap.addMark();
-
     this.subscribeForStoreService();
+  }
+
+  async getMarks() {
+    return this.apiClient
+      .get(API_ENDPOINTS.marks.list)
+      .then((res) => res?.data?.marks);
   }
 
   handleMarkersChanged() {
