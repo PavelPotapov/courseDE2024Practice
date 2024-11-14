@@ -1,7 +1,10 @@
 .yandexMap {
   --yandexMapWidthPlacemark: 4.625rem;
+  --yandexMapBallonLayoutWidth: 50rem;
+  --yandexMapBallonLayoutMinHeight: 10rem;
+  --yandexMapBallonContentBgColor: var(--colorWhite);
 
-  &__customPlacemark {
+  &__mark {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,5 +14,21 @@
     aspect-ratio: 1 / 1;
     transition: all 0.3s;
     box-shadow: var(--boxShadowDefault);
+  }
+
+  &__ballonLayout {
+    position: relative;
+    width: var(--yandexMapBallonLayoutWidth);
+    min-height: var(--yandexMapBallonLayoutMinHeight);
+    background-color: rgb(70, 15, 15);
+    translate: calc(-50% + var(--yandexMapWidthPlacemark) / 2)
+      calc(-100% - 2rem);
+    padding: 2px;
+    border-radius: 2rem;
+  }
+
+  &__ballonContent {
+    background-color: var(--yandexMapBallonContentBgColor);
+    width: 100%;
   }
 }
