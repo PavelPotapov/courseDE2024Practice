@@ -1,3 +1,5 @@
+import Swiper from "swiper";
+import { Pagination } from "swiper/modules";
 import {
   iconsPresets,
   classNames as defaultClassNames,
@@ -7,6 +9,9 @@ import {
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExtetnalScript";
 
+/**
+ *
+ */
 export class YandexMap {
   constructor({
     containerSelector,
@@ -29,6 +34,9 @@ export class YandexMap {
     this.currentBalloon = null;
     this.classNames = classNames ?? defaultClassNames;
     this.iconShapeCfg = iconShapeCfg ?? defaultIconShapeCfg;
+    this.attrs = {
+      ballon: "data-js-ballon",
+    };
   }
 
   getBallonLayout() {
@@ -50,15 +58,16 @@ export class YandexMap {
   }
 
   getBallonContent({ id, children }) {
+    const linkToCreateSwiperFn = this.createSwiperForBallon;
     if (window.ymaps) {
       const ballonContent = window.ymaps.templateLayoutFactory.createClass(
-        `<div class="${this.classNames.ballonContent}" data-js-ballon=${id}> 
+        `<div class="${this.classNames.ballonContent}" ${this.attrs.ballon}=${id}> 
             ${children}
         </div>`,
         {
           build: function () {
             ballonContent.superclass.build.call(this);
-            // this.createSwiper(ballonId); TODO: доделать.
+            linkToCreateSwiperFn(id);
           },
           clear: function () {
             ballonContent.superclass.clear.call(this);
@@ -70,30 +79,27 @@ export class YandexMap {
     throw new Error("ymaps not ready");
   }
 
-  createSwiper(ballonId) {
+  createSwiperForBallon(ballonId) {
     try {
       const ballonContainer = document.querySelector(
-        `[data-js-ballon=${ballonId}`
+        `[data-js-ballon="${ballonId}"]`
       );
 
-      // const swiperEl = ballonContainer.querySelector(".swiper");
-      // new Swiper(swiperEl, {
-      //   direction: "vertical",
-      //   loop: true,
+      const swiperEl = ballonContainer.querySelector(".swiper");
+      const swiperPagination =
+        ballonContainer.querySelector(".swiper-pagination");
 
-      //   pagination: {
-      //     el: ".swiper-pagination",
-      //   },
-
-      //   navigation: {
-      //     nextEl: ".swiper-button-next",
-      //     prevEl: ".swiper-button-prev",
-      //   },
-
-      //   scrollbar: {
-      //     el: ".swiper-scrollbar",
-      //   },
-      // });
+      if (swiperEl && swiperPagination) {
+        new Swiper(swiperEl, {
+          slidesPerView: 1,
+          direction: "horizontal",
+          modules: [Pagination],
+          pagination: {
+            el: swiperPagination,
+            clickable: true,
+          },
+        });
+      }
     } catch (e) {
       console.error(e);
     }
@@ -213,7 +219,7 @@ export class YandexMap {
     document.dispatchEvent(customEvent);
   }
 
-  renderCustomBallon(id, mark, info) {
+  updateBallonContent(id, mark, info) {
     mark.options.set(
       "balloonContentLayout",
       this.getBallonContent({
@@ -224,8 +230,28 @@ export class YandexMap {
   }
 
   getLayoutContentForBallon(info) {
-    console.debug("Вот здесь мы начинаем формировать верстку"); //TODO: ДЗ, сделать верстку балуна и вернуть ее
-    return "<p>Что-то будет</p>";
+    const {
+      type,
+      title,
+      address: { city, house, street },
+    } = info;
+    const slides = info.images
+      .map(
+        (image, index) =>
+          `<div class="swiper-slide"><img src="${image}" alt="${info.title} - Slide ${index + 1}"></div>`
+      )
+      .join("");
+
+    return `<div class="swiper">
+              <div class="swiper-wrapper">
+                ${slides}
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <h3>${title}</h3>
+            <div>${this.iconsPresets[type]}</div>
+            <p>${city},${street}, ${house}</p>
+            `;
   }
 
   @checkMapInstance

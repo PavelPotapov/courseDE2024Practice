@@ -44,8 +44,8 @@ export class MapApp {
       const res = await this.apiClient.get(API_ENDPOINTS.marks.detail, {
         id: id,
       });
-      const layout = this.yandexMap.getLayoutContentForBallon(res);
-      this.yandexMap.renderCustomBallon(id, mark, layout);
+      const layout = this.yandexMap.getLayoutContentForBallon(res.data);
+      this.yandexMap.updateBallonContent(id, mark, layout);
     } catch (e) {
       console.error(e);
     }
