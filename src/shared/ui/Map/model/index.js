@@ -32,6 +32,7 @@ export class YandexMap {
     this.instance = null;
     this.iconsPresets = iconsPresets;
     this.currentBalloon = null;
+    this.currentMarkerIdOpen = null;
     this.classNames = classNames ?? defaultClassNames;
     this.iconShapeCfg = iconShapeCfg ?? defaultIconShapeCfg;
     this.attrs = {
@@ -197,10 +198,12 @@ export class YandexMap {
       }
       // Обновляем ссылку на текущий открытый балун
       this.currentBalloon = placemark;
+      this.currentMarkerIdOpen = id;
     });
 
     placemark.events.add("balloonclose", () => {
       this.currentBalloon = null;
+      this.currentMarkerIdOpen = null;
     });
 
     this.instance.geoObjects.add(placemark);
@@ -208,6 +211,8 @@ export class YandexMap {
 
   handleMarkerClick(id, e) {
     const targetPlacemark = e.get("target");
+
+    if (this.currentBalloon && this.currentMarkerIdOpen === id) return;
 
     const customEvent = new CustomEvent(yandexMapCustomEventNames.markClicked, {
       detail: {
@@ -273,6 +278,7 @@ export class YandexMap {
       this.currentBalloon.balloon.close();
     }
     this.currentBalloon = null;
+    this.currentMarkerIdOpen = null;
   }
 
   #bindEvents() {
