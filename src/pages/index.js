@@ -156,6 +156,7 @@ const IndexPage = () => `
           })}
         </div>
         <div id="map1" class="yandexMap" style="width: 800px; aspect-ratio: 1 / 1"></div>
+        <input type="text" id="searchAddress" />
       </main>
     </body>
   </html>

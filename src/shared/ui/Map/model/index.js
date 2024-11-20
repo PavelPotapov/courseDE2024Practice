@@ -281,6 +281,15 @@ export class YandexMap {
     this.currentMarkerIdOpen = null;
   }
 
+  @checkMapInstance
+  centerMapByCords(cords, zoom = 15) {
+    try {
+      this.instance.setCenter(cords, zoom);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   #bindEvents() {
     this.instance.events.add("click", () => {
       this.handleCloseCurrentBallon(); //TODO: а надо ли? надо подумать
