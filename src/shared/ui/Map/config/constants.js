@@ -1,9 +1,10 @@
-import { BarIcon } from "#shared/ui/Icons/index.js";
+import { BarIcon, CenterMapIcon } from "#shared/ui/Icons/index.js";
 
 export const classNames = {
   ballonContent: "yandexMap__ballonContent",
   ballonLayout: "yandexMap__ballonLayout",
   mark: "yandexMap__mark",
+  centerMarker: "yandexMap__centerMarker",
 };
 
 export const iconShapeCfg = {
@@ -18,6 +19,7 @@ export const iconsPresets = {
   ["3"]: BarIcon({ iconColor: "var(--colorRed)" }),
   ["4"]: BarIcon({ iconColor: "var(--colorRed)" }),
   ["5"]: BarIcon({ iconColor: "var(--colorRed)" }),
+  centerMarker: CenterMapIcon({ iconColor: "var(--colorGray)" }),
 };
 
 export const yandexMapCustomEventNames = {

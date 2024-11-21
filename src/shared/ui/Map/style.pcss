@@ -4,6 +4,7 @@
   --yandexMapBallonLayoutMinHeight: 10rem;
   --yandexMapBallonContentBgColor: var(--colorWhite);
   --yandexMapBallonLayoutPd: 2px;
+  position: relative;
 
   &__mark {
     display: flex;
@@ -31,5 +32,15 @@
 
   &__ballonContent {
     max-width: 37.5rem;
+  }
+
+  &__centerMarker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4rem;
+    height: 4rem;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
   }
 }

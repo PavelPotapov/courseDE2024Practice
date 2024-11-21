@@ -10,7 +10,10 @@ export class MapApp {
     this.apiGeoUrl = "https://geocode-maps.yandex.ru/1.x/?apikey";
     this.apiKey = "b4a559eb-311c-4123-8025-480ecdc62549";
     this.inputAddress = document.querySelector("#searchAddress"); //TODO: вынести в фильтр.
-    console.debug(this.inputAddress, "!!!");
+    this.debouncedHandleMapByAddress = getDebouncedFn(
+      this.handleCenterMapByAddress,
+      1000
+    ).bind(this);
 
     this.yandexMap = new YandexMap({
       containerSelector: "#map1",
@@ -25,8 +28,10 @@ export class MapApp {
       .initMap()
       .then(async () => {
         this.yandexMap.renderMarks(this.storeService.getMarkers()); //Рендерим метки из стора
-        const marks = await this.getMarks();
-        this.storeService.updateStore("addMarkers", marks);
+        const marks = await this.getMarks(); //Получили метки с бека
+        const filters = await this.getFiltersCfg(); //Получили конфиг фильтров с бека
+        this.storeService.updateStore("setFilters", filters);
+        this.storeService.updateStore("setMarkers", marks);
       })
       .catch((e) => console.error(e));
 
@@ -39,6 +44,12 @@ export class MapApp {
     return this.apiClient
       .get(API_ENDPOINTS.marks.list)
       .then((res) => res?.data?.marks);
+  }
+
+  async getFiltersCfg() {
+    return this.apiClient
+      .get(API_ENDPOINTS.config.list)
+      .then((res) => res?.data);
   }
 
   async handleMarkerClick(e) {
@@ -63,18 +74,10 @@ export class MapApp {
   }
 
   handleFiltersChanged() {
-    console.debug("markers changed", this.storeService.getFilters());
+    console.debug("filters changed", this.storeService.getFilters());
   }
 
   handleCenterMapByAddress(address) {
-    console.debug(address, "address");
-    //TODO: как-то проверять что yandexMap и переписать на apiClient (добавить параметр ingoreBaseUrl)
-    // this.apiClient.get(this.apiGeoUrl, {
-    //   apikey: this.apiKey,
-    //   geocode: encodeURIComponent(address),
-    //   format: "json",
-    // });
-
     fetch(
       `${this.apiGeoUrl}=${this.apiKey}&geocode=${encodeURIComponent(address)}&format=json`
     )
@@ -115,13 +118,9 @@ export class MapApp {
 
   //TODO: переписать на фильтры
   #bindEvents() {
-    const debouncedHandleMapByAddress = getDebouncedFn(
-      this.handleCenterMapByAddress,
-      1000
-    ).bind(this);
     if (this.inputAddress)
       this.inputAddress.addEventListener("input", (e) => {
-        debouncedHandleMapByAddress(e.target.value);
+        this.debouncedHandleMapByAddress(e.target.value);
       });
   }
 }
