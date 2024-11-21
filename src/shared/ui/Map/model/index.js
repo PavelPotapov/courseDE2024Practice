@@ -24,6 +24,7 @@ export class YandexMap {
     iconShapeCfg,
   }) {
     this.containerSelector = containerSelector;
+    this.containerMap = document.querySelector(this.containerSelector);
     this.apiKey = apiKey;
     this.center = center;
     this.zoom = zoom;
@@ -120,7 +121,7 @@ export class YandexMap {
 
   #createMap() {
     this.instance = new window.ymaps.Map(
-      document.querySelector(this.containerSelector),
+      this.containerMap,
       {
         center: this.center,
         zoom: this.zoom,
@@ -204,14 +205,13 @@ export class YandexMap {
       const centerMarker = document.createElement("div");
       centerMarker.className = this.classNames["centerMarker"];
       centerMarker.innerHTML = this.iconsPresets["centerMarker"];
-      document.querySelector(this.containerSelector)?.appendChild(centerMarker);
+      this.containerMap.appendChild(centerMarker);
       this.centerMarker = centerMarker;
       console.debug(this.centerMarker);
     } catch (e) {
       console.error("Ошибка при добавлении центральной метки:", e);
     }
   }
-
 
   handleMarkerClick(id, e) {
     const targetPlacemark = e.get("target");
@@ -223,7 +223,7 @@ export class YandexMap {
       },
     });
 
-    document.dispatchEvent(customEvent);
+    this.containerMap.dispatchEvent(customEvent);
   }
 
   updateBallonContent(id, mark, info) {

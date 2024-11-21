@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from "#shared/config/constants";
 import { getDebouncedFn } from "#shared/lib/utils";
+import { FilterManager } from "#shared/ui/Filter/model";
 import { yandexMapCustomEventNames } from "#shared/ui/Map/config/constants";
 import { YandexMap } from "#shared/ui/Map/model";
 
@@ -10,6 +11,7 @@ export class MapApp {
     this.apiGeoUrl = "https://geocode-maps.yandex.ru/1.x/?apikey";
     this.apiKey = "b4a559eb-311c-4123-8025-480ecdc62549";
     this.inputAddress = document.querySelector("#searchAddress"); //TODO: вынести в фильтр.
+
     this.debouncedHandleMapByAddress = getDebouncedFn(
       this.handleCenterMapByAddress,
       1000
@@ -23,14 +25,16 @@ export class MapApp {
       center: [53.5, 53.9],
       zoom: 10,
     });
-
+    this.loadAndUpdateFilters(); //подгружаем инфу по конфигу фильтров
+    this.filterManager = new FilterManager({
+      containerSelector: `[data-js-filter="1"]`,
+      onUpdate: this.handleFilterChanged,
+    });
     this.yandexMap
       .initMap()
       .then(async () => {
         this.yandexMap.renderMarks(this.storeService.getMarkers()); //Рендерим метки из стора
         const marks = await this.getMarks(); //Получили метки с бека
-        const filters = await this.getFiltersCfg(); //Получили конфиг фильтров с бека
-        this.storeService.updateStore("setFilters", filters);
         this.storeService.updateStore("setMarkers", marks);
       })
       .catch((e) => console.error(e));
@@ -38,6 +42,25 @@ export class MapApp {
     this.#bindYandexMapEvents();
     this.subscribeForStoreService();
     this.#bindEvents(); //TODO: bindFilterEvents
+  }
+
+  handleFilterChanged(changeData) {
+    console.debug(
+      "Здесь я буду обращаться к стору и обновлять его данные активных фильтров",
+      changeData
+    );
+  }
+
+  loadAndUpdateFilters() {
+    (async () => {
+      try {
+        const filters = await this.getFiltersCfg();
+        this.storeService.updateStore("setFilters", filters);
+        this.filterManager.applyFilters(filters);
+      } catch (error) {
+        console.error("Ошибка при получении конфигурации фильтров:", error);
+      }
+    })();
   }
 
   async getMarks() {
@@ -68,12 +91,12 @@ export class MapApp {
     }
   }
 
-  handleMarkersChanged() {
+  handleMarkersChangedInStore() {
     console.debug("markers changed", this.storeService.getMarkers());
     this.yandexMap.renderMarks(this.storeService.getMarkers());
   }
 
-  handleFiltersChanged() {
+  handleFiltersChangedInStore() {
     console.debug("filters changed", this.storeService.getFilters());
   }
 
@@ -98,10 +121,10 @@ export class MapApp {
 
   subscribeForStoreService() {
     this.markerSubscription = this.storeService.subscribeToMarkers(() => {
-      this.handleMarkersChanged();
+      this.handleMarkersChangedInStore();
     });
     this.filterSubscription = this.storeService.subscribeToFilters(() => {
-      this.handleFiltersChanged();
+      this.handleFiltersChangedInStore();
     });
   }
 
@@ -111,9 +134,12 @@ export class MapApp {
   }
 
   #bindYandexMapEvents() {
-    document.addEventListener(yandexMapCustomEventNames.markClicked, (e) => {
-      this.handleMarkerClick(e);
-    });
+    this.yandexMap?.containerMap?.addEventListener(
+      yandexMapCustomEventNames.markClicked,
+      (e) => {
+        this.handleMarkerClick(e);
+      }
+    );
   }
 
   //TODO: переписать на фильтры
