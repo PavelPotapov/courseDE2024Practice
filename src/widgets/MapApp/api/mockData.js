@@ -35,11 +35,11 @@ export const filerCfg = {
 
 export const listMarsMockResponse = {
   marks: [
-    { id: "1", type: "1", cords: [53.5, 58.9] },
-    { id: "2", type: "2", cords: [54.5, 57.9] },
-    { id: "3", type: "3", cords: [53.5, 57.9] },
-    { id: "4", type: "4", cords: [52.5, 57.9] },
-    { id: "5", type: "4", cords: [51.5, 57.9] },
+    { id: "1", type: "bars", cords: [53.5, 58.9] },
+    { id: "2", type: "restaurant", cords: [54.5, 57.9] },
+    { id: "3", type: "trk", cords: [53.5, 57.9] },
+    { id: "4", type: "theatre", cords: [52.5, 57.9] },
+    { id: "5", type: "cinema", cords: [51.5, 57.9] },
   ],
 };
 
@@ -47,7 +47,7 @@ export const marksDetailMockResponse = [
   {
     id: "1",
     title: "Al Capone",
-    type: "1",
+    type: "bars",
     address: {
       city: "Челябинск",
       house: "12a",
@@ -65,7 +65,7 @@ export const marksDetailMockResponse = [
   {
     id: "2",
     title: "Al Capone 2",
-    type: "2",
+    type: "restaurant",
     address: {
       city: "Челябинск 2",
       house: "12a",
@@ -83,7 +83,7 @@ export const marksDetailMockResponse = [
   {
     id: "3",
     title: "Al Capone 2",
-    type: "3",
+    type: "trk",
     address: {
       city: "Челябинск 2",
       house: "12a",
@@ -101,7 +101,7 @@ export const marksDetailMockResponse = [
   {
     id: "4",
     title: "Al Capone 3",
-    type: "4",
+    type: "theatre",
     address: {
       city: "Челябинск 2",
       house: "12a",
@@ -119,7 +119,7 @@ export const marksDetailMockResponse = [
   {
     id: "5",
     title: "Al Capone 4",
-    type: "5",
+    type: "cinema",
     address: {
       city: "Челябинск 2",
       house: "12a",

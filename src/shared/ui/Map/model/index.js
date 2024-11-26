@@ -263,6 +263,7 @@ export class YandexMap {
 
   @checkMapInstance
   renderMarks(marks) {
+    this.clearMap(); //очистка перед рендером
     marks.forEach((mark) => {
       this.addMark({
         id: mark.id,
@@ -273,6 +274,11 @@ export class YandexMap {
         },
       });
     });
+  }
+
+  @checkMapInstance
+  clearMap() {
+    this.instance.geoObjects.removeAll();
   }
 
   @checkMapInstance
