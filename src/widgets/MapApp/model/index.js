@@ -27,7 +27,7 @@ export class MapApp {
       onUpdate: (changedData) => this.handleFilterChanged(changedData),
     });
 
-    this.filterManager.applyFilters(this.storeService.getFilters());
+    this.filterManager.applyFilters(this.storeService.getFilters()); //Применяем фильтры из стора
     this.loadAndUpdateFilters();
     this.yandexMap
       .initMap()
@@ -55,7 +55,6 @@ export class MapApp {
     (async () => {
       try {
         const filters = await this.getFiltersCfg();
-        console.debug(filters);
         this.storeService.updateStore("setFilters", filters);
         this.filterManager.applyFilters(filters);
       } catch (error) {

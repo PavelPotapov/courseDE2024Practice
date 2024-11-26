@@ -10,14 +10,14 @@ export class FilterManager {
     filterCfg,
     debounceDelayForInput = 1000,
   }) {
-    this.selectors = {
+    this.attrs = {
       filterContainer: "data-js-filter",
       filterItem: "data-js-filter-item",
       filterParentName: "data-js-filter-parent-name", //Храним имя родителя к которому относится элемент фильтра
     };
     this.filterName = filterName;
     this.container = document.querySelector(
-      `[${this.selectors.filterContainer}="${filterName}"]`
+      `[${this.attrs.filterContainer}="${filterName}"]`
     );
     if (!this.container) return;
     this.onUpdate = onUpdate;
@@ -34,23 +34,17 @@ export class FilterManager {
   }
 
   #bindFilterEvents() {
-    document.addEventListener("input", this.debouncedHandleEvent);
-    document.addEventListener("change", (e) => this.handleEvent(e));
+    document.addEventListener("input", this.debouncedHandleEvent, true);
+    document.addEventListener("change", (e) => this.handleEvent(e), true);
   }
 
   #notifyChange(changeData) {
-    console.debug(
-      "Оповестить другие элементы о том, что у нас произошли изменения в фильтре",
-      changeData
-    );
     if (typeof this.onUpdate === "function") {
       this.onUpdate(changeData);
     }
-
     const event = new CustomEvent("filter::changed", {
       detail: changeData,
     });
-
     this.container.dispatchEvent(event);
   }
 
@@ -59,7 +53,13 @@ export class FilterManager {
     const target = event.target;
 
     // Получаем имя фильтра
-    const filterName = target.getAttribute(this.selectors.filterItem);
+    const filterName = target.getAttribute(this.attrs.filterItem);
+
+    const filterParentName = target.getAttribute(this.attrs.filterParentName);
+
+    if (filterParentName !== this.filterName || !filterName) {
+      return;
+    }
 
     //TODO: switch-case
     const changeData = {
@@ -86,7 +86,7 @@ export class FilterManager {
     const { inputs } = filtersCfg;
     Object.entries(inputs).forEach(([name, data]) => {
       const filterItem = document.querySelector(
-        `[${this.selectors.filterItem}="${name}"][${this.selectors.filterParentName}="${this.filterName}"]`
+        `[${this.attrs.filterItem}="${name}"][${this.attrs.filterParentName}="${this.filterName}"]`
       );
 
       if (!filterItem) {
@@ -104,8 +104,6 @@ export class FilterManager {
           `Тип элемента фильтра "${filterItem.tagName}" не поддерживается.`
         );
       }
-
-      filterItem.checked = data.checked;
     });
   }
 }

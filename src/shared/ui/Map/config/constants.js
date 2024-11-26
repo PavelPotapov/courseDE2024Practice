@@ -21,11 +21,11 @@ export const iconShapeCfg = {
 };
 
 export const iconsPresets = {
-  ["bars"]: BarIcon({ iconColor: "var(--colorRed)" }),
-  ["cinema"]: CinemaIcon({ iconColor: "var(--colorRed)" }),
-  ["theatre"]: TheatreIcon({ iconColor: "var(--colorRed)" }),
-  ["restaurant"]: RestIcon({ iconColor: "var(--colorRed)" }),
-  ["trk"]: MusicIcon({ iconColor: "var(--colorRed)" }),
+  bars: BarIcon({ iconColor: "var(--colorRed)" }),
+  cinema: CinemaIcon({ iconColor: "var(--colorRed)" }),
+  theatre: TheatreIcon({ iconColor: "var(--colorRed)" }),
+  restaurant: RestIcon({ iconColor: "var(--colorRed)" }),
+  trk: MusicIcon({ iconColor: "var(--colorRed)" }),
   centerMarker: CenterMapIcon({ iconColor: "var(--colorGray)" }),
 };
 

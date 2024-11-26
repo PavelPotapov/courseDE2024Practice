@@ -207,7 +207,6 @@ export class YandexMap {
       centerMarker.innerHTML = this.iconsPresets["centerMarker"];
       this.containerMap.appendChild(centerMarker);
       this.centerMarker = centerMarker;
-      console.debug(this.centerMarker);
     } catch (e) {
       console.error("Ошибка при добавлении центральной метки:", e);
     }

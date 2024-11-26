@@ -22,7 +22,7 @@ export const filerCfg = {
     },
     theatre: {
       value: null,
-      isChecked: false,
+      isChecked: true,
       isDisabled: false,
     },
     cinema: {
