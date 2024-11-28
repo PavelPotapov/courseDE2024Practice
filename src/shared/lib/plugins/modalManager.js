@@ -1,3 +1,4 @@
+import { ConfirmModal } from "#features/ConfirmModal";
 import { Fancybox } from "@fancyapps/ui";
 
 /**
@@ -19,7 +20,6 @@ export class ModalManager {
 
     this.defaultOptions = {
       animationClass: "fade", // Класс для анимации
-      overlayColor: "rgba(0, 0, 0, 0.7)", // Цвет подложки
       trapFocus: false, // Настройка фокуса
       defaultType: "html",
       ...options,
@@ -45,20 +45,18 @@ export class ModalManager {
     message,
     onConfirm = () => {},
     onCancel = () => {},
+    options = {},
   } = {}) {
-    //TODO: можно вынести в shared/ui/ConfirmModal
-    const content = `
-      <div class="confirmModal">
-        <p>${message}</p>
-        <div class="modal-buttons">
-          <button data-js-confirm-btn class="btn btn--isConfirm">Да</button>
-          <button data-js-cancel-btn class="btn btn--isCancel">Нет</button>
-        </div>
-      </div>
-    `;
+    const finalOptions = {
+      ...this.defaultOptions,
+      ...options,
+      closeButton: false,
+    };
+
+    const content = ConfirmModal({ message });
 
     Fancybox.show([{ src: content, type: "html" }], {
-      ...this.defaultOptions,
+      ...finalOptions,
       on: {
         reveal: () => {
           try {
