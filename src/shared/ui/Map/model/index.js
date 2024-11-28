@@ -8,6 +8,7 @@ import {
 } from "../config/constants.js";
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExtetnalScript";
+import { DeleteMarkBtn } from "#features/Marks/DeleteMark/index.js";
 
 /**
  *
@@ -235,7 +236,7 @@ export class YandexMap {
     );
   }
 
-  getLayoutContentForBallon(info) {
+  getLayoutContentForBallon(id, info) {
     const {
       type,
       title,
@@ -248,6 +249,7 @@ export class YandexMap {
       )
       .join("");
 
+    // TODO: вынести в отдельный entities/ballon и вызывать ui (в качестве слотов будут передавать две фичи - удалить / редактировать)
     return `<div class="swiper">
               <div class="swiper-wrapper">
                 ${slides}
@@ -257,6 +259,7 @@ export class YandexMap {
             <h3>${title}</h3>
             <div>${this.iconsPresets[type]}</div>
             <p>${city},${street}, ${house}</p>
+            ${DeleteMarkBtn({ markId: id })}
             `;
   }
 

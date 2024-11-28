@@ -1,9 +1,11 @@
 import "./styles.js";
 import { API_URL } from "#shared/config/constants";
+import { ModalManager } from "#shared/lib/plugins/modalManager.js";
 import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { StoreService } from "#shared/lib/services/StoreService.js";
 import { ChoiceSelectModel } from "#shared/ui/CustomSelect/model/index.js";
 import { MapApp } from "#widgets/MapApp/model/index.js";
+import { DeleteMarkModel } from "#features/Marks/DeleteMark/model/index.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -31,4 +33,21 @@ Promise.all([initMSW(), domReady()]).then(() => {
   new ChoiceSelectModel();
   window.App.ChoiceSelectModel = ChoiceSelectModel;
   new MapApp(new StoreService("mapAppStore"), new ApiClient(API_URL));
+  new DeleteMarkModel();
+
+  // setTimeout(() => {
+  //   const modalManager = ModalManager.getInstance({
+  //     animationClass: "slide",
+  //     overlayColor: "rgba(0, 0, 0, 0.8)",
+  //   });
+  //   modalManager.open("#modalSuccess", { type: "inline" });
+  //   modalManager.open("#modalError", { type: "inline" });
+  //   modalManager.open("<p>Привет, мир!</p>");
+  //   modalManager.closeAll();
+  //   modalManager.openConfirmModal({
+  //     message: "Вы уверены?",
+  //     onConfirm: () => console.debug("Подтверждено!"),
+  //     onCancel: () => console.debug("Отменено!"),
+  //   });
+  // }, 1000);
 });

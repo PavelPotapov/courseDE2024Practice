@@ -100,7 +100,14 @@ export class ApiClient {
     return this.request(endpoint, "PUT", body, headers, contentType);
   }
 
-  delete(endpoint, headers = {}, contentType = "application/json") {
-    return this.request(endpoint, "DELETE", null, headers, contentType);
+  delete(
+    endpoint,
+    params = {},
+    headers = {},
+    contentType = "application/json"
+  ) {
+    const queryString = this.serializeParams(params);
+    const urlWithParams = queryString ? `${endpoint}?${queryString}` : endpoint;
+    return this.request(urlWithParams, "DELETE", null, headers, contentType);
   }
 }
