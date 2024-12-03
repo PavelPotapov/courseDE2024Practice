@@ -10,7 +10,8 @@ export class DeleteMarkModel {
     deleteMarkBtn: "[data-js-delete-mark-btn]",
   };
 
-  constructor() {
+  constructor(storeService) {
+    this.storeService = storeService;
     this.#bindEvents();
   }
 
@@ -34,6 +35,10 @@ export class DeleteMarkModel {
     const handleDelete = async () => {
       try {
         await deleteMark(markId); // Попытка удалить метку через API
+        this.storeService.updateStore(
+          "setMarkers",
+          this.storeService.getMarkers().filter((item) => item.id !== markId)
+        );
       } catch (error) {
         console.error("Ошибка при удалении метки:", error);
       }
@@ -46,7 +51,7 @@ export class DeleteMarkModel {
         ModalManager.getInstance().closeAll();
       },
       onCancel: () => {
-        ModalManager.closeAll();
+        ModalManager.getInstance().closeAll();
       },
     });
   };

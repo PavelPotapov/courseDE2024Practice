@@ -32,21 +32,22 @@ Promise.all([initMSW(), domReady()]).then(() => {
   window.App = {};
   new ChoiceSelectModel();
   window.App.ChoiceSelectModel = ChoiceSelectModel;
-  new MapApp(new StoreService("mapAppStore"), new ApiClient(API_URL));
-  new DeleteMarkModel();
+  window.App.StoreServiceForMap = new StoreService("mapAppStore");
+  new MapApp(window.App.StoreServiceForMap, new ApiClient(API_URL));
+  new DeleteMarkModel(window.App.StoreServiceForMap);
 
-  setTimeout(() => {
-    const modalManager = ModalManager.getInstance({
-      animationClass: "slide",
-    });
-    // modalManager.open("#modalSuccess", { type: "inline" });
-    // modalManager.open("#modalError", { type: "inline" });
-    // modalManager.open("<p class='test'>Привет, мир!</p>");
-    // modalManager.closeAll();
-    modalManager.openConfirmModal({
-      message: "Вы уверены?",
-      onConfirm: () => console.debug("Подтверждено!"),
-      onCancel: () => console.debug("Отменено!"),
-    });
-  }, 2000);
+  // setTimeout(() => {
+  //   const modalManager = ModalManager.getInstance({
+  //     animationClass: "slide",
+  //   });
+  //   // modalManager.open("#modalSuccess", { type: "inline" });
+  //   // modalManager.open("#modalError", { type: "inline" });
+  //   // modalManager.open("<p class='test'>Привет, мир!</p>");
+  //   // modalManager.closeAll();
+  //   // modalManager.openConfirmModal({
+  //   //   message: "Вы уверены?",
+  //   //   onConfirm: () => console.debug("Подтверждено!"),
+  //   //   onCancel: () => console.debug("Отменено!"),
+  //   // });
+  // }, 2000);
 });

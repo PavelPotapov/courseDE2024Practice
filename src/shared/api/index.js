@@ -25,4 +25,9 @@ export const handlers = [
     endpoint: API_ENDPOINTS.config.list,
     data: filerCfg,
   }),
+  getResponseMock({
+    type: "DELETE",
+    endpoint: API_ENDPOINTS.marks.delete,
+    data: {},
+  }),
 ];
