@@ -165,10 +165,9 @@ const IndexPage = () => `
         <div id="modalSuccess">
             <p>Успешно!</p>
         </div>
-      </div>
-     
-      <div id="modalError">
+           <div id="modalError">
           <p>Не успешно!</p>
+        </div>
       </div>
     </body>
   </html>
