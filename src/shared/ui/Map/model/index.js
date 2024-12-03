@@ -7,8 +7,9 @@ import {
   iconShapeCfg as defaultIconShapeCfg,
 } from "../config/constants.js";
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
-import { getExternalScript } from "#shared/lib/utils/getExtetnalScript";
 import { DeleteMarkBtn } from "#features/Marks/DeleteMark/index.js";
+import { UpdateMarkBtn } from "#features/Marks/UpdateMark/ui/Updatemark.js";
+import { getExternalScript } from "#shared/lib/utils/getExtetnalScript";
 
 /**
  *
@@ -260,6 +261,7 @@ export class YandexMap {
             <div>${this.iconsPresets[type]}</div>
             <p>${city},${street}, ${house}</p>
             ${DeleteMarkBtn({ markId: id })}
+            ${UpdateMarkBtn({ markInfo: info })}
             `;
   }
 

@@ -15,7 +15,7 @@ export const filerCfg = {
       isChecked: false,
       isDisabled: false,
     },
-    trk: {
+    club: {
       value: null,
       isChecked: false,
       isDisabled: false,
@@ -37,7 +37,7 @@ export const listMarsMockResponse = {
   marks: [
     { id: "1", type: "bars", cords: [53.5, 58.9] },
     { id: "2", type: "restaurant", cords: [54.5, 57.9] },
-    { id: "3", type: "trk", cords: [53.5, 57.9] },
+    { id: "3", type: "club", cords: [53.5, 57.9] },
     { id: "4", type: "theatre", cords: [52.5, 57.9] },
     { id: "5", type: "cinema", cords: [51.5, 57.9] },
   ],
@@ -83,7 +83,7 @@ export const marksDetailMockResponse = [
   {
     id: "3",
     title: "Al Capone 2",
-    type: "trk",
+    type: "club",
     address: {
       city: "Челябинск 2",
       house: "12a",

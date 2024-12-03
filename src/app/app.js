@@ -6,6 +6,7 @@ import { ApiClient } from "#shared/lib/services/ApiClient.js";
 import { StoreService } from "#shared/lib/services/StoreService.js";
 import { ChoiceSelectModel } from "#shared/ui/CustomSelect/model/index.js";
 import { MapApp } from "#widgets/MapApp/model/index.js";
+import { UpdateMarkModel } from "#features/Marks/UpdateMark/model/index.js";
 
 async function initMSW() {
   if (process.env.NODE_ENV === "development") {
@@ -35,6 +36,7 @@ Promise.all([initMSW(), domReady()]).then(() => {
   window.App.StoreServiceForMap = new StoreService("mapAppStore");
   new MapApp(window.App.StoreServiceForMap, new ApiClient(API_URL));
   new DeleteMarkModel(window.App.StoreServiceForMap);
+  new UpdateMarkModel(window.App.StoreServiceForMap);
 
   // setTimeout(() => {
   //   const modalManager = ModalManager.getInstance({

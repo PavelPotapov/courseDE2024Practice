@@ -1,5 +1,5 @@
-import { ConfirmModal } from "#features/ConfirmModal";
 import { Fancybox } from "@fancyapps/ui";
+import { ConfirmModal } from "#features/ConfirmModal";
 
 /**
  * Класс для управления модальными окнами с использованием Fancybox (Singleton).

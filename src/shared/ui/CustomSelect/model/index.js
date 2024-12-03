@@ -149,6 +149,13 @@ export class ChoiceSelectModel {
     },
   };
 
+  static getInstance() {
+    if (!ChoiceSelectModel.instance) {
+      ChoiceSelectModel.instance = new ChoiceSelectModel();
+    }
+    return ChoiceSelectModel.instance;
+  }
+
   static createChoiceSelect(node) {
     const cfg = getCfg(node, "data-js-custom-select");
     const { disableTemplates, preset, ...restCfg } = cfg;
