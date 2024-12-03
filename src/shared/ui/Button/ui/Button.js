@@ -10,4 +10,4 @@ export const Button = ({
   extraClasses = [],
   extraAttrs = [],
 }) =>
-  `<button class="btn ${extraClasses.join(" ")}" ${getGeneratedAttrs(extraAttrs)}><span class="btn__icon">${iconSlot}</span><span class="btn__label">${text}</span></button>`;
+  `<button class="btn ${extraClasses.join(" ")}" ${getGeneratedAttrs(extraAttrs)} ><span class="btn__icon">${iconSlot}</span><span class="btn__label">${text}</span></button>`;

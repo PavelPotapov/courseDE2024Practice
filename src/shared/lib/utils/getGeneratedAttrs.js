@@ -1,7 +1,12 @@
-/**
- * Генерируем атрибуты для компонентов
- * @return {String}
- */
 export const getGeneratedAttrs = (attributes = []) => {
-  return attributes.map((attr) => `${attr.name}=${attr.value}`).join(" ");
+  const res = attributes
+    .map((attr) => {
+      const value =
+        typeof attr.value === "object"
+          ? JSON.stringify(attr.value)
+          : attr.value;
+      return `${attr.name}='${value}'`;
+    })
+    .join(" ");
+  return res;
 };
