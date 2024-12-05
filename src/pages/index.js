@@ -161,6 +161,10 @@ const IndexPage = () => `
         <div id="map1" class="yandexMap" style="width: 800px; aspect-ratio: 1 / 1"></div>
       </main>
 
+      <form>
+          
+      </form>
+
       <div style="display: none">
         <div id="modalSuccess">
             <p>Успешно!</p>

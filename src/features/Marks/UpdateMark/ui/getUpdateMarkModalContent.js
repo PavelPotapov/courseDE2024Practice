@@ -17,19 +17,23 @@ export const getUpdateMarkModalContent = ({
   method = "post",
   iconColor = "var(--colorBlack)",
 }) => {
-  return `<div class="updateModalContent">
-  <form action="${url}" method="${method}">
+  return `<div class="updateModalContent" >
+  <form data-js-form=${JSON.stringify({ url, method, showModalAfterSuccess: "#modalSuccess", redirectUrlAfterSuccess: "/test.html", delayBeforeRedirect: 3000 })}>
     <h3>Редактировать метку</h3>
     <p>${markInfo.title}</p>
     <div>
       <label>Комментарий пользователя
-        <input type="comment" value="${markInfo.comment}" />
+        <input type="comment" value="${markInfo.comment}" name="comment" />
       </label>
       ${CustomSelect({
         extraAttrs: [
           {
             name: "data-js-update-mark-info-select-type",
             value: markInfo.id,
+          },
+          {
+            name: "name",
+            value: "typeMark",
           },
         ],
         cfg: {

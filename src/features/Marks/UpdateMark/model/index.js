@@ -1,5 +1,5 @@
 import { getUpdateMarkModalContent } from "../ui/getUpdateMarkModalContent.js";
-import { API_ENDPOINTS } from "#shared/config/constants.js";
+import { API_ENDPOINTS, API_URL } from "#shared/config/constants.js";
 import { ModalManager } from "#shared/lib/plugins/modalManager";
 import { ChoiceSelectModel } from "#shared/ui/CustomSelect/model/index.js";
 
@@ -27,7 +27,7 @@ export class UpdateMarkModel {
       ModalManager.getInstance().open(
         getUpdateMarkModalContent({
           markInfo,
-          url: API_ENDPOINTS.marks.update,
+          url: `${API_URL}/${API_ENDPOINTS.marks.update}`,
         }),
         {
           on: {
